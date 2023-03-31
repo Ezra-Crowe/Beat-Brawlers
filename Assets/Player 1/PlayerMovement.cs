@@ -8,11 +8,12 @@ public class PlayerMovement : MonoBehaviour
     public int speed = 5;
     public int jumpSpeed = 5;
     public Rigidbody rb;
+    public GameObject RespawnAnchor;
     public double jumpCooldown = 1;
 
     private bool canJump = false;
     private double timeElapsed = 0;
-    private double timeSinceLastJump = double.MaxValue;
+    private double timeSinceLastJump = double.PositiveInfinity;
     // Start is called before the first frame update
     void Start()
     {
@@ -41,6 +42,12 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    private void death()
+    { 
+        transform.position = RespawnAnchor.transform.position;
+        rb.velocity = Vector3.zero;
+    }
+
     private void OnCollisionEnter(Collision collision)
     {
         //layer 3 is the stage layer
@@ -52,9 +59,19 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnCollisionExit(Collision collision)
     {
+        //layer 3 is the stage layer
         if (collision.gameObject.layer == 3)
         {
             canJump = false;
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        //layer 6 is the boundry layer
+        if (other.gameObject.layer == 6)
+        {
+            death();
         }
     }
 }
