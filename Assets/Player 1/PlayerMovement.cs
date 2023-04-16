@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
@@ -14,10 +15,10 @@ public class PlayerMovement : MonoBehaviour
     private bool canJump = false;
     private double timeElapsed = 0;
     private double timeSinceLastJump = double.PositiveInfinity;
+    private bool lookingRight = true;
     // Start is called before the first frame update
     void Start()
     {
-        
     }
 
     // Update is called once per frame
@@ -27,10 +28,12 @@ public class PlayerMovement : MonoBehaviour
         timeSinceLastJump += Time.deltaTime;
         if (Input.GetKey(KeyCode.D))
         {
+            lookingRight = true;
             transform.Translate(Vector3.right * speed * Time.deltaTime);
         }
         if (Input.GetKey(KeyCode.A))
         {
+            lookingRight = false;
             transform.Translate(Vector3.left * speed * Time.deltaTime);
         }
 
@@ -46,6 +49,12 @@ public class PlayerMovement : MonoBehaviour
     { 
         transform.position = RespawnAnchor.transform.position;
         rb.velocity = Vector3.zero;
+    }
+
+    //Returns true if the character is looking right and false if the character is looking left
+    public bool lookDirection()
+    {
+        return lookingRight;
     }
 
     private void OnCollisionEnter(Collision collision)
