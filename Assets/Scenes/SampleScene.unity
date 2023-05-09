@@ -411,6 +411,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ProjectileObject: {fileID: 6187317179866595369, guid: 9eba39fd9a7b1421fa25f4ca69ac5a0f, type: 3}
   attackButton: 102
+  cooldown: 0.5
   projectileSpeed: 3
 --- !u!1 &705507993
 GameObject:

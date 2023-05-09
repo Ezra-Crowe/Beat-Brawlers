@@ -18,5 +18,12 @@ public class ProjectileScript : MonoBehaviour
         Destroy(ProjectileObject);
     }
 
-
+    private void OnTriggerExit(Collider other)
+    {
+        //layer 6 is the boundry layer
+        if (other.gameObject.layer == 6)
+        {
+            Destroy(gameObject);
+        }
+    }
 }
