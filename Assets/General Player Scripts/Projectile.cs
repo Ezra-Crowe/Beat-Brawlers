@@ -22,23 +22,19 @@ public class Projectile : MonoBehaviour
         {
             FireProjectile();
         }
-        void FireProjectile()
-        {
+    }
 
-            GameObject newProjectile = Instantiate(ProjectileObject, transform.position, Quaternion.identity);
-            ProjectileScript projectileScriptShoot = newProjectile.GetComponent<ProjectileScript>();
-            if (Input.GetKey(KeyCode.D))
-            {
-                projectileScriptShoot.way = Vector3.right;
-            }
-            else if (Input.GetKey(KeyCode.A))
-            {
-                projectileScriptShoot.way = Vector3.left;
-            }
-            else
-            {
-                projectileScriptShoot.way = Vector3.right;
-            }
+    void FireProjectile()
+    {
+
+        GameObject newProjectile = Instantiate(ProjectileObject, transform.position, Quaternion.identity);
+        ProjectileScript projectileScriptShoot = newProjectile.GetComponent<ProjectileScript>();
+        if (movementScript.lookDirection())
+        {
+            projectileScriptShoot.way = Vector3.right;
+        }else
+        {
+            projectileScriptShoot.way = Vector3.left;
         }
     }
 }
