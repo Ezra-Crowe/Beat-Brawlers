@@ -19,7 +19,7 @@ MonoBehaviour:
     width: 2048
     height: 1060.8
   m_ShowMode: 4
-  m_Title: Project
+  m_Title: Scene
   m_RootView: {fileID: 6}
   m_MinSize: {x: 875, y: 300}
   m_MaxSize: {x: 10000, y: 10000}
@@ -48,7 +48,7 @@ MonoBehaviour:
   m_MinSize: {x: 300, y: 100}
   m_MaxSize: {x: 24288, y: 16192}
   vertical: 0
-  controlID: 48
+  controlID: 103
 --- !u!114 &3
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -223,7 +223,7 @@ MonoBehaviour:
   m_MinSize: {x: 200, y: 100}
   m_MaxSize: {x: 16192, y: 16192}
   vertical: 1
-  controlID: 49
+  controlID: 39
 --- !u!114 &10
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -323,22 +323,22 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/General Player Scripts
+    - Assets/Player 1
     m_Globs: []
     m_OriginalText: 
     m_ImportLogFlags: 0
   m_ViewMode: 1
   m_StartGridSize: 64
   m_LastFolders:
-  - Assets/General Player Scripts
+  - Assets/Player 1
   m_LastFoldersGridSize: -1
   m_LastProjectPath: C:\Users\ezral\OneDrive\Documents\Misc Cloud Items from desktop\fighting-game
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
     scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: 50590000
-    m_LastClickedID: 22864
+    m_SelectedIDs: 52590000
+    m_LastClickedID: 22866
     m_ExpandedIDs: 00000000445900004a59000000ca9a3bffffff7f
     m_RenameOverlay:
       m_UserAcceptedRename: 0
@@ -507,7 +507,7 @@ MonoBehaviour:
   m_SceneHierarchy:
     m_TreeViewState:
       scrollPos: {x: 0, y: 0}
-      m_SelectedIDs: ac120000
+      m_SelectedIDs: 
       m_LastClickedID: 0
       m_ExpandedIDs: 2cfbffff
       m_RenameOverlay:
@@ -889,9 +889,9 @@ MonoBehaviour:
   m_PlayAudio: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: -3.5695953, y: -0.32116032, z: 5.490426}
+    m_Target: {x: 0.35243943, y: -1.6922522, z: 6.169224}
     speed: 2
-    m_Value: {x: -3.5695953, y: -0.32116032, z: 5.490426}
+    m_Value: {x: 0.35243943, y: -1.6922522, z: 6.169224}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -937,9 +937,9 @@ MonoBehaviour:
     m_GridAxis: 1
     m_gridOpacity: 0.5
   m_Rotation:
-    m_Target: {x: -0.12907821, y: 0.8142115, z: -0.198224, w: -0.530192}
+    m_Target: {x: -0.14232416, y: -0.002377932, z: 0.0003421696, w: -0.9898188}
     speed: 2
-    m_Value: {x: -0.12907834, y: 0.8142124, z: -0.1982242, w: -0.5301926}
+    m_Value: {x: -0.14232394, y: -0.0023779282, z: 0.00034216908, w: -0.98981726}
   m_Size:
     m_Target: 10
     speed: 2

@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.44657844, g: 0.49641222, b: 0.57481676, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -243,6 +243,7 @@ GameObject:
   - component: {fileID: 612311057}
   - component: {fileID: 612311058}
   - component: {fileID: 612311059}
+  - component: {fileID: 612311060}
   m_Layer: 0
   m_Name: Player 1
   m_TagString: Untagged
@@ -395,6 +396,21 @@ MonoBehaviour:
   attackButton: 13
   hitbox: {fileID: 9153937324867648970, guid: b98ef4e110fe4334d8335b3daa780228, type: 3}
   meleeTime: 0.5
+--- !u!114 &612311060
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 612311052}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d7bcf98d6e64e490bac570eb122d0102, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ProjectileObject: {fileID: 6187317179866595369, guid: 9eba39fd9a7b1421fa25f4ca69ac5a0f, type: 3}
+  attackButton: 102
+  way: {x: 0, y: 0, z: 0}
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
@@ -696,7 +712,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1349549035}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a1ebc2773d55246d082e7981178194da, type: 3}
   m_Name: 
