@@ -396,6 +396,7 @@ MonoBehaviour:
   attackButton: 13
   hitbox: {fileID: 9153937324867648970, guid: b98ef4e110fe4334d8335b3daa780228, type: 3}
   meleeTime: 0.5
+  meleeCooldown: 0.2
 --- !u!114 &612311060
 MonoBehaviour:
   m_ObjectHideFlags: 0

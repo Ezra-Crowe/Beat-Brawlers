@@ -10,7 +10,9 @@ public class Melee : MonoBehaviour
     public GameObject hitbox;
     private double time;
     public double meleeTime;
+    public double meleeCooldown;
     private PlayerMovement movementScript;
+    private double timeSinceMelee = 0;
 
     // Start is called before the first frame update
     void Start()
@@ -21,7 +23,10 @@ public class Melee : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKeyDown(attackButton)){
+        timeSinceMelee -= Time.deltaTime;
+        if(Input.GetKeyDown(attackButton) && (timeSinceMelee + meleeCooldown) <= 0){
+            Debug.Log("attempting to attack");
+            timeSinceMelee = meleeTime;
             if(movementScript.lookDirection()){
                 GameObject melee = Instantiate(hitbox, new Vector3 (gameObject.transform.position.x+1 , gameObject.transform.position.y , gameObject.transform.position.z), gameObject.transform.rotation) as GameObject;
                 melee.transform.parent = gameObject.transform;
