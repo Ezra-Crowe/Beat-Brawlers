@@ -410,7 +410,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ProjectileObject: {fileID: 6187317179866595369, guid: 9eba39fd9a7b1421fa25f4ca69ac5a0f, type: 3}
   attackButton: 102
-  way: {x: 0, y: 0, z: 0}
+  projectileSpeed: 3
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0

@@ -8,7 +8,9 @@ public class Projectile : MonoBehaviour
     public KeyCode attackButton;
     private double time;
     private PlayerMovement movementScript;
-    public Vector3 way;
+    private Vector3 way;
+    //this is a multiplier for projectile speed
+    public float projectileSpeed = 1;
     // Start is called before the first frame update
     void Start()
     {
@@ -31,10 +33,10 @@ public class Projectile : MonoBehaviour
         ProjectileScript projectileScriptShoot = newProjectile.GetComponent<ProjectileScript>();
         if (movementScript.lookDirection())
         {
-            projectileScriptShoot.way = Vector3.right;
+            projectileScriptShoot.way = new Vector3(projectileSpeed, 0, 0);
         }else
         {
-            projectileScriptShoot.way = Vector3.left;
+            projectileScriptShoot.way = new Vector3(projectileSpeed * -1, 0, 0);
         }
     }
 }
