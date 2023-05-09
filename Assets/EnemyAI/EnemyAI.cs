@@ -8,6 +8,8 @@ public class EnemyAI : MonoBehaviour
     public float attackDelay = 2f; // Time between attacks
     public float attackDamage = 15f; // Damage done by each attack
     public float attackCooldown = 0f; // Time until the next attack can be 
+    public Rigidbody rb;
+    public GameObject RespawnAnchorAI;
     public Stats Script;
 
     public Transform target; // Player's transform
@@ -38,6 +40,10 @@ public class EnemyAI : MonoBehaviour
                 attackCooldown -= Time.deltaTime;
             }
         }
+        else 
+        {
+            transform.position = Vector3.MoveTowards(transform.position, target.position,.01f);
+        }
     }
     void Attack()
     {
@@ -60,13 +66,22 @@ public class EnemyAI : MonoBehaviour
         // Check if the enemy has died
         if (currentHealth <= 0f)
         {
-            Die();
+            death();
         }
     }
 
-    void Die()
+    private void death()
+    { 
+        transform.position = RespawnAnchorAI.transform.position;
+        rb.velocity = Vector3.zero;
+    }
+
+     private void OnTriggerExit(Collider other)
     {
-        // Destroy the enemy game object
-        Destroy(gameObject);
+        //layer 6 is the boundry layer
+        if (other.gameObject.layer == 6)
+        {
+            death();
+        }
     }
 }
