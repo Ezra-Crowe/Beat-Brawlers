@@ -10,6 +10,7 @@ public class Stats : MonoBehaviour
     public double melee_damage = 10;
     public double ranged_damage = 2;
     public float maxHealth = 100; // The enemy's maximum health
+    public int stocks;
     private double currentHealth;
 
     void Start()

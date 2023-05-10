@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting.Antlr3.Runtime.Misc;
 using UnityEngine;
 
 public class EnemyAI : MonoBehaviour
@@ -8,7 +9,7 @@ public class EnemyAI : MonoBehaviour
     public float attackDelay = 2f; // Time between attacks
     public float attackDamage = 15f; // Damage done by each attack
     public float attackCooldown = 0f; // Time until the next attack can be 
-    public Rigidbody rb;
+    private Rigidbody rb;
     public GameObject RespawnAnchorAI;
     public Stats Script;
 
@@ -19,6 +20,7 @@ public class EnemyAI : MonoBehaviour
     void Start()
     {
         currentHealth = maxHealth;
+        rb = gameObject.GetComponent<Rigidbody>();
 
     }
 
@@ -74,9 +76,47 @@ public class EnemyAI : MonoBehaviour
     { 
         transform.position = RespawnAnchorAI.transform.position;
         rb.velocity = Vector3.zero;
+        Script.stocks--;
+        Script.health = 0;
     }
 
-     private void OnTriggerExit(Collider other)
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.GetComponent<ProjectileScript>() != null)
+        {
+            if (collision.gameObject.transform.position.x > gameObject.transform.position.x)
+            {
+                Debug.Log("adding force");
+                rb.AddForce(new Vector3(-1 * (1 + ((int)Script.health / 10)) * 5, 0, 0), ForceMode.Impulse);
+                Script.health += 6;
+            }
+            else
+            {
+                Debug.Log("adding force");
+                rb.AddForce(new Vector3(1 * (1 + ((int)Script.health / 10)) * 5, 0, 0), ForceMode.Impulse);
+                Script.health += 6;
+            }
+            Destroy(collision.gameObject);
+        }
+
+        if (collision.gameObject.GetComponent<DeleteObj>() != null && collision.gameObject.transform.parent != gameObject.transform)
+        {
+            if (collision.gameObject.transform.position.x > gameObject.transform.position.x)
+            {
+                Debug.Log("adding force");
+                rb.AddForce(new Vector3(-1 * (1 + ((int)Script.health / 10)) * 5, 0, 0), ForceMode.Impulse);
+                Script.health += 12;
+            }
+            else
+            {
+                Debug.Log("adding force");
+                rb.AddForce(new Vector3(1 * (1 + ((int)Script.health / 10)) * 5, 0, 0), ForceMode.Impulse);
+                Script.health += 12;
+            }
+            Destroy(collision.gameObject);
+        }
+    }
+    private void OnTriggerExit(Collider other)
     {
         //layer 6 is the boundry layer
         if (other.gameObject.layer == 6)

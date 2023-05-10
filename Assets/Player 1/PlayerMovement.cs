@@ -11,6 +11,7 @@ public class PlayerMovement : MonoBehaviour
     public Rigidbody rb;
     public GameObject RespawnAnchor;
     public double jumpCooldown = 1;
+    private Stats stats;
 
     private bool canJump = false;
     private double timeElapsed = 0;
@@ -19,6 +20,7 @@ public class PlayerMovement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        stats = gameObject.GetComponent<Stats>();
     }
 
     // Update is called once per frame
@@ -49,6 +51,8 @@ public class PlayerMovement : MonoBehaviour
     { 
         transform.position = RespawnAnchor.transform.position;
         rb.velocity = Vector3.zero;
+        stats.health = 0;
+        stats.stocks--;
     }
 
     //Returns true if the character is looking right and false if the character is looking left
@@ -63,6 +67,40 @@ public class PlayerMovement : MonoBehaviour
         if (collision.gameObject.layer == 3)
         {
             canJump = true;
+        }
+
+        if (collision.gameObject.GetComponent<ProjectileScript>() != null)
+        {
+            if (collision.gameObject.transform.position.x > gameObject.transform.position.x)
+            {
+                Debug.Log("adding force");
+                rb.AddForce(new Vector3(-1 * (1 + ((int)stats.health /10)) * 5, 0, 0), ForceMode.Impulse);
+                stats.health += 6;
+            }
+            else
+            {
+                Debug.Log("adding force");
+                rb.AddForce(new Vector3(1 * (1 + ((int)stats.health / 10)) * 5, 0, 0), ForceMode.Impulse);
+                stats.health += 6;
+            }
+            Destroy(collision.gameObject);
+        }
+
+        if (collision.gameObject.GetComponent<DeleteObj>() != null && collision.gameObject.transform.parent != gameObject.transform)
+        {
+            if (collision.gameObject.transform.position.x > gameObject.transform.position.x)
+            {
+                Debug.Log("adding force");
+                rb.AddForce(new Vector3(-1 * (1 + ((int)stats.health / 10)) * 5, 0, 0), ForceMode.Impulse);
+                stats.health += 12;
+            }
+            else
+            {
+                Debug.Log("adding force");
+                rb.AddForce(new Vector3(1 * (1 + ((int)stats.health / 10)) * 5, 0, 0), ForceMode.Impulse);
+                stats.health += 12;
+            }
+            Destroy(collision.gameObject);
         }
     }
 
