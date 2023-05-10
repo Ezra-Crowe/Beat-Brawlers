@@ -11,9 +11,15 @@ public class EnemyAI : MonoBehaviour
     private Rigidbody rb;
     public GameObject RespawnAnchorAI;
     public GameObject ProjectileObject;
+    public GameObject hitbox;
+
     public float projectileSpeed = 1;
     double projTimeSinceAttack = 0;
     public double projcooldown = 5f;
+    private double timeSinceMelee = 0;
+    public double meleeTime;
+    public double meleeCooldown;
+
 
 
     public Stats Script;
@@ -36,6 +42,7 @@ public class EnemyAI : MonoBehaviour
     void Update()
     {
         projTimeSinceAttack += Time.deltaTime;
+        timeSinceMelee -= Time.deltaTime;
             bool lookDirection = true;
             if(target.position.x < transform.position.x) {
                 lookDirection = false;
@@ -44,11 +51,25 @@ public class EnemyAI : MonoBehaviour
 
         // Check if the player is within attack distance
         float distanceToTarget = Vector3.Distance(transform.position, target.position);
-        if (distanceToTarget <= attackDistance)
+        if (distanceToTarget <= attackDistance && (timeSinceMelee + meleeCooldown) <= 0) //melee condition
         {
-            
+            timeSinceMelee = meleeTime;
+            if(lookDirection){
+                GameObject melee = Instantiate(hitbox, new Vector3 (gameObject.transform.position.x+1 , gameObject.transform.position.y , gameObject.transform.position.z), gameObject.transform.rotation) as GameObject;
+                melee.transform.parent = gameObject.transform;
+                DeleteObj deleteScript = melee.GetComponent<DeleteObj>();
+                deleteScript.deletionTime = meleeTime;
+                Debug.Log("attacking");
+            }
+            else{
+                GameObject melee = Instantiate(hitbox, new Vector3 (gameObject.transform.position.x-1 , gameObject.transform.position.y , gameObject.transform.position.z), gameObject.transform.rotation) as GameObject;
+                melee.transform.parent = gameObject.transform;
+                DeleteObj deleteScript = melee.GetComponent<DeleteObj>();
+                deleteScript.deletionTime = meleeTime;
+                Debug.Log("attacking");
+            }
         }
-        else 
+        else //projectile condition
         {
             transform.position = Vector3.MoveTowards(transform.position, target.position,.01f);
             if(projTimeSinceAttack >= projcooldown) {
