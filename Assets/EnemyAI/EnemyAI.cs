@@ -5,13 +5,20 @@ using UnityEngine;
 
 public class EnemyAI : MonoBehaviour
 {
-    public float attackDistance = 5f; // Distance from which the enemy can attack
+    public float attackDistance = 1f; // Distance from which the enemy can attack
     public float attackDelay = 2f; // Time between attacks
     public float attackDamage = 15f; // Damage done by each attack
-    public float attackCooldown = 0f; // Time until the next attack can be 
     private Rigidbody rb;
     public GameObject RespawnAnchorAI;
+    public GameObject ProjectileObject;
+    public float projectileSpeed = 1;
+    double projTimeSinceAttack = 0;
+    public double projcooldown = 5f;
+
+
     public Stats Script;
+    private Melee meleeScript;
+    private Projectile projectileScipt; 
 
     public Transform target; // Player's transform
     public float maxHealth = 100f; // The enemy's maximum health
@@ -20,6 +27,7 @@ public class EnemyAI : MonoBehaviour
     void Start()
     {
         currentHealth = maxHealth;
+        projectileScipt = gameObject.GetComponent<Projectile>();
         rb = gameObject.GetComponent<Rigidbody>();
 
     }
@@ -27,38 +35,35 @@ public class EnemyAI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        projTimeSinceAttack += Time.deltaTime;
+            bool lookDirection = true;
+            if(target.position.x < transform.position.x) {
+                lookDirection = false;
+            }
+
+
         // Check if the player is within attack distance
         float distanceToTarget = Vector3.Distance(transform.position, target.position);
         if (distanceToTarget <= attackDistance)
         {
-            // Attack if the attack cooldown is over
-            if (attackCooldown <= 0f)
-            {
-                Attack();
-                attackCooldown = attackDelay;
-            }
-            else
-            {
-                attackCooldown -= Time.deltaTime;
-            }
+            
         }
         else 
         {
             transform.position = Vector3.MoveTowards(transform.position, target.position,.01f);
+            if(projTimeSinceAttack >= projcooldown) {
+                projTimeSinceAttack = 0;
+                Vector3 spawnPos = new Vector3(transform.position.x + ((lookDirection) ? 1 : -1), transform.position.y, transform.position.z);
+                GameObject newProjectile = Instantiate(ProjectileObject, spawnPos, Quaternion.identity);
+                ProjectileScript projectileScriptShoot = newProjectile.GetComponent<ProjectileScript>();
+                if (lookDirection) {
+                projectileScriptShoot.way = new Vector3(projectileSpeed, 0, 0);
+                }
+                else {
+                projectileScriptShoot.way = new Vector3(projectileSpeed * -1, 0, 0);
+                }
+            }
         }
-    }
-    void Attack()
-    {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            // Get a reference to the Stats component on the opponent GameObject
-            Stats opponentStats = FindObjectOfType<Stats>();
-
-            // Call the TakeDamege method on the opponentStats component, passing in the attack damage
-            opponentStats.TakeDamege(attackDamage);
-        }
-        // Deal damage to the player
-        // target.GetComponent<Stats>().TakeDamage(attackDamage);
     }
 
     public void TakeDamage(float damage)
